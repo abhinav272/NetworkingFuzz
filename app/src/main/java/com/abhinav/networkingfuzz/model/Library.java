@@ -1,5 +1,7 @@
 package com.abhinav.networkingfuzz.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,7 @@ import java.util.List;
  */
 public class Library {
     private String title;
+    @SerializedName("items")
     private List<Book> books;
 
     public String getTitle() {
