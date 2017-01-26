@@ -38,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        hitAPI();
+    }
+
     private void setupViews() {
         title = (TextView) findViewById(R.id.tv_title);
         gridView = (GridView) findViewById(R.id.grid_view);
@@ -47,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
         customBaseAdapter = new CustomBaseAdapter(this, loadedBooks);
         gridView.setAdapter(customBaseAdapter);
 
+        hitAPI();
+    }
 
+    private void hitAPI() {
         observeLibrary().flatMap(new Func1<Library, Observable<Book>>() {
 
             @Override
