@@ -81,7 +81,7 @@ public class RetrofitService {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                if (Utils.isNetworkAvailable(NetworkingFuzz.getInstance())) {
+                if (!Utils.isNetworkAvailable(NetworkingFuzz.getInstance())) {
                     CacheControl cacheControl = new CacheControl.Builder()
                             .maxStale(7, TimeUnit.DAYS)
                             .build();
@@ -89,10 +89,6 @@ public class RetrofitService {
                     request = request.newBuilder()
                             .cacheControl(cacheControl)
                             .build();
-                }
-                else {
-                    request = request.newBuilder()
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
                 }
                 return chain.proceed(request);
             }
